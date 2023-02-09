@@ -1,0 +1,766 @@
+/********************
+ * IMPORTS DE RESSOURCES / VARIABLES
+ ********************/
+@font-face {
+  font-family: "Montserrat";
+  src: url("misc/Montserrat.ttf");
+}
+
+/* Icônes fournis par Google */
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+/* Icônes utilisées via la police de Google */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.5em;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+
+:root {
+  /* Gestion des couleurs du site */
+  --header: rgb(30, 30, 30);
+  --bg: rgb(224, 192, 232);
+  --footer: rgb(15, 15, 15);
+
+  --primary: rgb(109, 38, 224);
+  --secondary: rgb(195, 73, 226);
+  --danger: rgb(224, 53, 53);
+
+  --white: rgb(238, 238, 238);
+  --black: rgb(15, 15, 15);
+  --transparent-black: rgba(15, 15, 15, 0.3);
+
+  /* Gestion des dimensions de l'en-tête / du pied de page */
+  --header-height: inherit;
+  --footer-height: 2.5em;
+}
+
+/********************
+ * ANIMATIONS
+ ********************/
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Rotation (pour les chargemnts notamment) */
+.spin {
+  animation: spin 1s ease-in-out infinite;
+}
+
+/* Icône principale de chargement */
+.load-icon {
+  font-size: 3em;
+}
+
+/* Apparition en fondu progressif */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation: fade-in 1s forwards;
+}
+
+/* Disparition en fondu progressif */
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.fade-out {
+  animation: fade-out 1s forwards;
+}
+/********************/
+
+/********************
+ * STRUCTURATION GÉNÉRALE
+ ********************/
+ 
+/* Aspect graphique des barre de défilement */
+::-webkit-scrollbar {
+  width: 1em;
+  background: var(--white); 
+}
+::-webkit-scrollbar-thumb {
+  background: var(--black); 
+}
+
+/* Gestion de la police d'écriture */
+* {
+  font-family: "Montserrat";
+}
+
+/* Page entière */
+html, body {
+  margin: 0;
+  
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  font-size: 1.1em;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100%;
+  width: 100%;
+}
+
+/* Contenu principal */
+main {
+  padding: 1em;
+  flex-grow: 1;
+
+  color: var(--black);
+}
+
+/* Lignes responsives */
+.container {
+  width: 100%;
+}
+
+.row {
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.flex-align-top {
+  align-items: flex-start;
+}
+
+.flex-align-bl {
+  align-items: baseline;
+}
+
+.column {
+  flex: 1 1 0;
+}
+
+.valign-center {
+  vertical-align: middle;
+}
+
+/* Gestion des marges et espacements */
+.no-margin,
+.white-box.no-margin,
+button.no-margin {
+  margin: 0;
+}
+
+.no-margin-w,
+.white-box.no-margin-w {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.no-margin-h,
+.white-box.no-margin-h {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+div.margin, .margin {
+  margin: 1em;
+}
+
+div.margin-top, .margin-top {
+  margin-top: 1em;
+}
+
+div.no-padding, .no-padding {
+  padding: 0;
+}
+
+div.padding, .padding {
+  padding: 1em;
+}
+
+/* Case de contenu général */
+.white-box {
+  background-color: var(--white);
+  padding: 0.5em;
+  margin: 0.5em;
+  border: 0.1em solid var(--white);
+  border-radius: 1em;
+}
+
+.white-box,
+table,
+.btn:not(.btn-link):not(.menu-link) {
+  box-shadow: 0 0 0.5em rgba(15, 15, 15, 80);
+}
+
+.white-box.no-border,
+table.no-border,
+.btn:not(.btn-link):not(.menu-link).no-border {
+  box-shadow: none;
+}
+
+/* Boites d'informations de différents couleurs (par exemple, pour afficher les notifications) */
+.box {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+
+  padding: 1em;
+  border: 0.1em solid transparent;
+  border-radius: 1em;
+  min-width: 25%;
+  z-index: 1000;
+}
+
+.primary-box {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.secondary-box {
+  background-color: var(--secondary);
+  color: var(--white);
+}
+
+.danger-box {
+  background-color: var(--danger);
+  color: var(--white);
+}
+/********************/
+
+
+/********************
+ * PARTIE MOBILE
+ ********************/
+@media (min-width: 30em) {
+  button.btn-mob-menu {
+    display: none;
+  }
+  
+  .mobile-only {
+    display: none;
+  }
+
+  /* ONGLETS */
+  form.container > ul.tabs {
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+    justify-content: start;
+
+    position: relative;
+    bottom: -0.5em;
+  }
+
+  form.container > ul.tabs li.tab {
+    background-color: var(--white);
+    color: var(--black);
+  
+    display: inline-block;
+    margin: 0 0 0 1.5em;
+    padding: 0.75em 1em 0.5em 1em;
+  
+    border: 0.1em solid var(--transparent-black);
+    border-bottom: 0.1em solid var(--white);
+    border-radius: 1em 1em 0 0;
+  
+    box-shadow: 0.5em 0 1em -1em rgba(15, 15, 15, 80);
+  }
+  
+  form.container > ul.tabs > .active > li.tab {
+    font-weight: bold;
+    color: var(--primary);
+  }
+  /* FIN DES ONGLETS */
+}
+/********************/
+
+
+/********************
+ * PARTIE ORDINATEUR
+ ********************/
+@media (max-width: 30em) {
+  body {
+    font-size: 1em;
+  }
+
+  main > .row {
+    align-items: normal;
+  }
+
+  main .row {
+    display: block;
+  }
+
+  /* Elements de menu de l'en-tête, en haut de la page */
+  #menu {
+    position: fixed;
+    top: 0;
+    width: 0;
+    height: 100%;
+
+
+    background: var(--header);
+    opacity: 0;
+
+    transition: width 0.5s ease-in,
+                opacity 0.5s ease-in;
+
+    z-index: 70;
+  }
+
+  #menu.active {
+    width: 100%;
+    opacity: 1;
+  }
+
+  #menu > .row {
+    align-items: initial;
+  }
+
+  #menu a {
+    display: block;
+  }
+
+  /* Lignes et tableaux */
+  form.container > .row {
+    flex-direction: column;
+  }
+
+  tr {
+    border-bottom: solid 0.1em var(--black);
+  }
+
+  th, td {
+    display: block;
+  }
+
+  button.btn-mob-menu {
+    display: inline-block;
+  }
+  
+  td.actions {
+    text-align: center;
+  }
+  
+  /* Affichage ou dissimulation d'éléments */
+  .mobile-only {
+    display: inherit;
+  }
+  
+  .no-mobile {
+    display: none;
+  }
+}
+
+/********************
+ * STRUCTURE
+ ********************/
+#root > header, #root > footer {
+  background-color: var(--header);
+  color: var(--white)
+}
+
+#header-logo {
+  height: 5em;
+}
+
+main.container {
+  width: -webkit-fill-available;
+}
+
+#root > footer {  
+  background-color: var(--footer);
+  color: var(--white);
+
+  height: var(--footer-height);
+  
+  margin-bottom: auto;
+}
+/********************/
+
+/********************
+ * Textes
+ ********************/
+/* mise en forme des titres */
+h1 {
+  font-size: 2.5em;
+  color: var(--header);
+}
+
+h2 {
+  font-size: 1.75em;
+  color: var(--secondary);
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+/* Liens */
+a {
+  color: var(--secondary);
+}
+
+/* Couleurs et mise en forme des textes */
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.text-danger {
+  color: var(--danger);
+}
+
+.text-light {
+  color: var(--white);
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-no-underline {
+  text-decoration: none;
+}
+/********************/
+
+/********************
+ * BOUTONS / INTERACTIONS DE BOUTONS
+ ********************/
+a.btn {
+  text-decoration: none;
+}
+
+.btn {
+  display: inline-block;
+
+  vertical-align: center;
+  
+  margin: 0.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+
+  cursor: pointer;
+}
+
+.btn .material-icons {
+  font-size: 24px;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--white);
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  color: var(--white);
+}
+
+.btn-link {
+  background-color: transparent;
+}
+
+.btn.btn-action {
+  padding: 0.5em;
+  font-size: 0.8em;
+}
+
+/* Boutons avec des Material Icons */
+.btn.btn-icons {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.rounded {
+  border-radius: 50%
+}
+/********************/
+
+/********************
+ * MENUS
+ ********************/
+#menu a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.8em;
+
+  /* Positionne le bouton pour utiliser "after" */
+  position: relative;
+
+  transition: color 0.3s linear;
+}
+
+#menu a:hover {
+  color: var(--secondary);
+}
+
+#menu a.active {
+  color: var(--secondary);
+}
+
+#menu a.menu-link::after {
+  content: '';
+
+  width: 100%;
+  height: 0.3em;
+  
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  background-color: var(--secondary);
+
+  transform: scaleX(0);
+  transform-origin: bottom left;
+  transition: transform 0.25s ease-in-out;
+}
+
+#menu a.menu-link:hover::after {
+  transform: scaleX(1);
+}
+
+/********************
+ * FORUMAIRES
+ ********************/
+form.container > .row {
+  justify-content: space-evenly;
+}
+
+form.container > .row > .colmumn {
+  width: -webkit-fill-available;
+}
+
+.form-group {
+  width: 100%;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+input:not([type="submit"]):not([type="hidden"]),
+select,
+.react-select-container .react-select__control {
+  background-color: var(--white);
+  color: var(--black);
+
+  border: 0.2em solid lightgray;
+  border-radius: 0.6em;
+  padding: 0.3em 0.6em;
+
+  height: 2em;
+  box-sizing: content-box;
+
+  transition: border 0.5s;
+
+  align-content: center;
+}
+
+input:not([type="submit"]):not([type="hidden"]):not([type="checkbox"]),
+select {
+  width: 100%;
+  width: stretch;
+}
+
+input[type="time"] {
+  max-width: 10em;
+}
+
+.react-select__control > .react-select__value-container--is-multi {
+  padding: 0;
+  height: 1.5em;
+
+  overflow: auto;
+  align-items: normal;
+}
+
+.react-select__input-container > .react-select__input, .react-select__multi-value {
+  height: 1.5em;
+  align-items: center;
+}
+
+select[multiple] {
+  height: auto;
+}
+
+input:not([type="submit"]):not([type="hidden"]):focus-visible,
+select:focus-visible:not([multiple]),
+.react-select-container > .react-select__control:hover,
+.react-select-container > .react-select__control.react-select__control--is-focused {
+  outline: none;
+  box-shadow: none;
+  border: 0.2em solid var(--secondary);
+}
+
+.react-select-container *::-webkit-scrollbar {
+  width: 0.2em;
+  background: var(--white); 
+}
+/********************/
+
+/********************
+ * TABLEAUX
+ ********************/
+main table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 1em;
+}
+
+main table > thead,
+main table > tfoot {
+  background-color: var(--header);
+  color: var(--white);
+}
+
+main table > thead > tr > th:first-child {
+  border-top-left-radius: 1em;
+}
+
+main table > thead > tr > th:last-child {
+  border-top-right-radius: 1em;
+}
+
+main table > tfoot > tr > th:first-child {
+  border-bottom-left-radius: 1em;
+}
+
+main table > tfoot > tr > th:last-child {
+  border-bottom-right-radius: 1em;
+}
+
+main table > thead > tr > th {
+  padding: 0.5em;
+}
+
+main table > tbody > tr > td {
+  padding: 0.5em;
+  background-color: var(--white);
+
+  word-break: break-word;
+}
+
+.actions-column {
+  width: 25%;
+}
+/********************/
+
+/********************
+ * FENETRES MODALES
+ ********************/
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(15, 15, 15, 0.4);
+}
+
+.modal-content {
+  background-color: var(--white);
+  margin: 15% auto;
+  padding: 2em;
+  border-radius: 1em;
+  width: 80%;
+}
+/********************/
+
+/********************
+ * Menu contextuel
+ ********************/
+.dropdown {
+  position: relative;
+  right: 0;
+  
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none;
+
+  position: absolute;
+  top: calc(100% - 0.5rem);
+  right: 0.5rem;
+  width: 10em;
+
+  background-color: var(--white);
+  border-radius: 0.5em 0 0.5em 0.5em;
+  box-shadow: 0 1em 2em 0 var(--transparent-black);
+
+  z-index: 2;
+}
+
+.btn > .dropdown > .dropdown-menu {
+  top: -0.5em;
+}
+
+.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+/********************/
