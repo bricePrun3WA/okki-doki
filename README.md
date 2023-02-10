@@ -28,3 +28,7 @@ Il est à noter que les comptes clients sont optionnels, mais chaque information
 ## Structuration des dossiers
 - Le back et front-office en React sont présents dans le dossier "site", et possède différentes pages dans "components > admin" ou  "components > client"
 - le dossier "api" correspond à la partie traitement de la base de données, en NodeJS.
+
+## Accès aux pages et mot de passe par défaut
+- L'accès à l'URL "/" mène à l'espace client, tandis que l'URL "/admin" (à taper manuellement) mène à l'epace admin
+- Les identifiants super admin: brice.prunier@3wa.io / 123
